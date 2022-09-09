@@ -10,7 +10,7 @@ module Stone
       # in utf-8
       # /\p{Punct}/ =~ ">"  => nil
       # /[[:punct:]]/ =~ ">"  => 0
-      Pattern=Regexp.compile(
+      Pattern=Regexp.new(
         /#{BlankPattern}((#{CommentPattern})|(#{NumPattern})|(#{StrPattern})|#{NamePattern})?/
       )
 

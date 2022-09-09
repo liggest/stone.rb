@@ -1,0 +1,37 @@
+# TypeProf 0.21.3
+
+# Classes
+module Stone
+  class Token
+    EOF: Token
+    EOL: String
+
+    attr_reader line_no: Integer
+    def initialize: (Integer line_no) -> void
+    def is_name?: -> false
+    def is_num?: -> false
+    def is_str?: -> false
+    def num: -> Integer
+    def str: -> String
+  end
+
+  class NumToken < Token
+    def initialize: (Integer line_no, Integer num) -> void
+    def is_num?: -> true
+    def str: -> String
+    attr_reader num: Integer
+  end
+
+  class NameToken < Token
+    def initialize: (untyped line_no, String name) -> void
+    def is_name?: -> true
+    def str: -> String
+    attr_reader name: String
+  end
+
+  class StrToken < Token
+    def initialize: (untyped line_no, String str) -> void
+    def is_str?: -> true
+    attr_reader str: String
+  end
+end

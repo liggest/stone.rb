@@ -3,7 +3,7 @@ module Stone
   class StoneError < RuntimeError
     def initialize(msg,ast=nil)
       return super(msg) unless ast
-      super("#{msg} #{ast.loc}") #TODO
+      super("#{msg} #{ast.location}") #TODO
     end
   end
 

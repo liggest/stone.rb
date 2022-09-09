@@ -1,0 +1,25 @@
+# TypeProf 0.21.3
+
+# Classes
+module Stone
+  class Lexer
+    BlankPattern: Regexp
+    CommentPattern: Regexp
+    NumPattern: Regexp
+    StrPattern: Regexp
+    NamePattern: Regexp
+    Pattern: Regexp
+    @more: bool
+
+    attr_reader queue: Array[Token]
+    attr_reader reader: IO
+    def initialize: (IO reader) -> void
+    def more?: -> bool
+    def read: -> (Token | nil)
+    def peek: (Integer n) -> Token
+    def fill_queue?: (Integer n) -> bool
+    def readline: -> void
+    def add_token: (Integer line_no, MatchData match) -> void
+    def str_literal: (String s) -> String
+  end
+end
