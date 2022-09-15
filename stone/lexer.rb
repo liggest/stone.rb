@@ -4,7 +4,7 @@ module Stone
       BlankPattern=/\s*/
       CommentPattern=/\/\/.*/
       NumPattern=/[0-9]+/
-      StrPattern=/"(\\"|\\\\|\\n|[^"])*"/
+      StrPattern=/"(\\"|\\\\|\\n|[^"\\])*"/
       # NamePattern=/[A-Z_a-z][A-Z_a-z0-9]*|==|<=|>=|&&|\|\||\p{Punct}/
       NamePattern=/[A-Z_a-z][A-Z_a-z0-9]*|==|<=|>=|&&|\|\||[[:punct:]]/
       # in utf-8

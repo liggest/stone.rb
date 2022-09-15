@@ -1,0 +1,44 @@
+
+#result {
+    border: 2px;
+    border-style: solid;
+    border-color: gray;
+    min-height: 256px;
+}
+
+.line {
+    line-height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.token {
+    font-family: ui-monospace, SFMono-Regular, SF Mono,Menlo, Consolas, Liberation Mono, monospace;
+    font-size: 12px;
+    white-space: pre;
+}
+
+.token.name {
+    color: #242424;
+}
+
+.token.str {
+    color: saddlebrown;
+}
+
+.token.num {
+    color: #0550ae;
+}
+
+.token.lineNo {
+    color: #6e7781;
+    padding-right: 10px;
+    width: 20px;
+    text-align: right;
+}
+
+.token.error {
+    color: darkred;
+    font-weight: bold;
+}

@@ -12,10 +12,10 @@ module Stone
     @more: bool
 
     attr_reader queue: Array[Token]
-    attr_reader reader: IO
-    def initialize: (IO reader) -> void
+    attr_reader reader: _Reader
+    def initialize: (_Reader reader) -> void
     def more?: -> bool
-    def read: -> (Token | nil)
+    def read: -> Token?
     def peek: (Integer n) -> Token
     def fill_queue?: (Integer n) -> bool
     def readline: -> void

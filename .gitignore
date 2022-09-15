@@ -57,3 +57,7 @@ build-iPhoneSimulator/
 
 # sig
 # Steepfile
+
+bin
+.vscode
+.gem_rbs_collection

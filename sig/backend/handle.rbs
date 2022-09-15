@@ -1,0 +1,15 @@
+# TypeProf 0.21.3
+
+# Classes
+class Object
+  private
+  def handle: (untyped conn, String msg) -> nil
+end
+
+module Stone
+  class Token
+    def as_json: -> {name: String, str: String, lineNo: Integer?}
+               
+    def to_json: (JSON::State | Hash[untyped,untyped] | nil) -> String
+  end
+end

@@ -4,8 +4,25 @@ source "https://rubygems.org"
 
 # gem "rails"
 
-gem "rspec", "~> 3.11", :group => :dev
 
-gem "rake", "~> 13.0", :group => :dev
+gem "sinatra", "~> 2.2"
 
-gem "steep", "~> 1.1", :group => :dev
+gem "falcon", "~> 0.42.3"
+
+gem "async-websocket", "~> 0.22.1"
+
+group :dev do
+
+    gem "rspec", "~> 3.11"
+
+    gem "rake", "~> 13.0"
+
+    gem "steep", "~> 1.1"
+    
+    gem "solargraph", "~> 0.46.0"
+
+    gem "rerun", "~> 0.13.1"
+
+end
+
+

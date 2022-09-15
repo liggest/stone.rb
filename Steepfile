@@ -4,11 +4,12 @@ target :stone do
   signature "sig"
 
   check "stone/*.rb"                       # Directory name
+  check "backend/*.rb"
   # check "Gemfile"                   # File name
   # check "app/models/**/*.rb"        # Glob
   # ignore "lib/templates/*.rb"
 
-  # library "pathname", "set"       # Standard libraries
+  library "pathname", "set", "json"      # Standard libraries
   # library "bundler"           # Gems
   
   # configure_code_diagnostics(D::Ruby.strict)       # `strict` diagnostics setting
