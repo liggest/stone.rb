@@ -15,7 +15,7 @@ module Stone
     attr_reader reader: _Reader
     def initialize: (_Reader reader) -> void
     def more?: -> bool
-    def read: -> Token?
+    def read: -> Token
     def peek: (Integer n) -> Token
     def fill_queue?: (Integer n) -> bool
     def readline: -> void

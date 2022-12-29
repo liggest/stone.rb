@@ -1,0 +1,86 @@
+# TypeProf 0.21.3
+
+# Classes
+module Stone
+  module AST
+    class Node
+      include Enumerable[Node]
+      include _Each[Node]
+
+      Empty: Array[Node]
+      def initialize: (untyped) -> void
+      def child: (Integer i) -> Node?
+      def size: -> Integer
+      def children: -> Enumerator[Node,Array[Node]]
+      def location: -> String?
+      # def each: -> _Each[Node]
+      # def each: -> Enumerator[Node,Array[Node]]
+    end
+
+    class Leaf < Node
+      attr_reader token: Token
+      # @token: Token
+      def initialize: (Token _token) -> void
+      def child: (Integer i) -> nil
+      def to_s: -> String
+      def location: -> String
+    end
+
+    class List < Node
+      @children: Array[Node]
+
+      def initialize: (Array[Node] nodes) -> void
+      def to_s: -> String
+    end
+
+    class NumLiteral < Leaf
+      def val: -> Integer
+    end
+
+    class Name < Leaf
+      def name: -> String
+    end
+
+    class BinExpr < List
+      def left: -> Node?
+      def operator: -> String
+      def right: -> Node?
+    end
+
+    class PrimaryExpr < List
+      def self.create: (Array[Node] nodes) -> Node
+    end
+
+    class NegExpr < List
+      def operand: -> Node?
+      def to_s: -> String
+    end
+    class BlockStmnt < List
+    end
+
+    class IfStmnt < List
+      def condition: -> Node?
+
+      def then_block: -> Node?
+
+      def else_block: -> Node?
+
+      def to_s: -> String
+    end
+
+    class WhileStmnt < List
+      def condition: -> Node?
+
+      def body: -> Node?
+
+      def to_s: -> String
+    end
+
+    class NullStmnt < List
+    end
+
+    class StrLiteral < Leaf
+      def value: -> String
+    end
+  end
+end

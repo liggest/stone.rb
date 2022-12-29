@@ -10,7 +10,8 @@ module Stone
       # in utf-8
       # /\p{Punct}/ =~ ">"  => nil
       # /[[:punct:]]/ =~ ">"  => 0
-      Pattern=Regexp.new(
+      # Pattern=Regexp.new(
+      Pattern=Regexp.compile(
         /#{BlankPattern}((#{CommentPattern})|(#{NumPattern})|(#{StrPattern})|#{NamePattern})?/
       )
 
@@ -23,12 +24,11 @@ module Stone
         @reader=reader
       end
 
-      def more?
-        @more
-      end
+      def more? = @more
 
       def read
-        return queue.shift if fill_queue?(0)
+        # make steep happy
+        return t = _ = queue.shift if fill_queue?(0)
         Token::EOF
       end
 
@@ -81,8 +81,6 @@ module Stone
         queue << token
       end
 
-      def str_literal(s)
-        s.undump # \"\\n\" => "\n"
-      end
+      def str_literal(s) = s.undump # \"\\n\" => "\n"
   end
 end

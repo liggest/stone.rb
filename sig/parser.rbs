@@ -1,0 +1,165 @@
+module Stone
+  class Parser
+    attr_reader elements: Array[Element]
+
+    attr_reader factory: Factory?
+
+    def initialize: (singleton(AST::Node)? obj) -> void
+                  | (Parser obj) -> void
+
+    def parse: (Lexer lexer) -> AST::Node
+
+    def match?: (Lexer lexer) -> boolish
+
+    def reset: (?singleton(AST::Node)? cls) -> self
+    
+    class Element
+      def parse: (Lexer lexer,Array[AST::Node] res) -> void
+
+      def match?: (Lexer lexer) -> boolish
+    end
+
+    class Tree < Element
+      attr_reader parser: Parser
+
+      def initialize: (Parser psr) -> void
+    end
+
+    class OrTree < Element
+      attr_reader parsers: Array[Parser]
+
+      def initialize: (Array[Parser] psrs) -> void
+
+      def choose: (Lexer lexer) -> Parser?
+
+      def insert: (Parser p) -> void
+                
+      def append: (Parser p) -> void
+    end
+
+    class Repeat < Element
+      attr_reader parser: Parser
+      @once: boolish
+
+      def once?: () -> boolish
+
+      def initialize: (Parser psrs, boolish once) -> void
+    end
+
+    class AToken < Element
+      attr_reader factory: Factory?
+
+      def initialize: (singleton(AST::Leaf)? cls) -> void
+
+      def test?: (Token token) -> boolish
+    end
+
+    class NameToken < AToken
+      attr_reader reserved: Set[String]
+
+      def initialize: (singleton(AST::Leaf)? cls, Set[String]? reserve) -> void
+    end
+
+    class NumToken < AToken
+    end
+
+    class StrToken < AToken
+    end
+
+    class Leaf < Element
+      attr_reader tokens: Array[String]
+
+      def initialize: (Array[String] pattern) -> void
+
+      def find: (Array[AST::Node] res, Token token) -> void
+    end
+
+    class Skip < Leaf
+    end
+
+    class Precedence
+      attr_reader value: Integer
+      @left: boolish
+
+      def left?: () -> boolish
+
+      def initialize: (Integer val, boolish left) -> void
+    end
+
+    class Operators < Hash[String,Precedence]
+      LEFT: true
+      RIGHT: false
+
+      def add: (String name, Integer prec, boolish left) -> void
+    end
+
+    class Expr < Element
+      attr_reader factory: Factory?
+
+      attr_reader ops: Operators
+
+      attr_reader factor: Parser
+
+      def initialize: (singleton(AST::Node)? cls, Parser expr, Operators ops_map) -> void
+
+      def do_shift: (Lexer lexer, boolish left, Integer prec) -> AST::Node
+
+      def next_op: (Lexer lexer) -> Precedence?
+
+      def right_expr?: (Integer prec, Precedence next_prec) -> boolish
+
+    end
+
+    class Factory
+      MethodName: Symbol
+
+      def _make: (untyped arg) -> AST::Node?
+
+      def make: -> AST::Node?
+
+      def self.get_for_ASTList: (singleton(AST::Node)? cls) -> instance?
+
+      def self.get: (singleton(AST::Node)? cls) -> instance?
+    end
+
+    # weird
+    module Rule
+      def rule: (?singleton(AST::Node)? cls) ?{ (*untyped)[self: Parser] -> Parser? } -> Parser
+    end
+
+    extend Rule
+
+    # def self.rule: (?singleton(AST::Node)? cls) ?{ (*untyped)[self: Parser] -> Parser? } -> Parser
+    def rule: -> Parser
+
+    def NUM: (?singleton(AST::Leaf)? cls) -> self
+
+    def NAME: (Set[String] reserved, ?singleton(AST::Leaf)? cls) -> self
+
+    def STR: (?singleton(AST::Leaf)? cls) -> self
+
+    def token: (*String pattern) -> self
+
+    def sep: (*String pattern) -> self
+
+    def ast: (Parser parser) -> self
+
+    def or: (*Parser parsers) -> self
+
+    def maybe: (Parser parser) -> self
+
+    def option: (Parser parser) -> self
+
+    def repeat: (Parser parser) -> self
+              | { [self: Parser] -> Parser } -> self
+
+    def expression: (Parser sub_parser, Operators operators, ?singleton(AST::Node)? cls) -> self
+
+    def insert_choice: (Parser parser) -> self
+    
+    # def append_choice: (Parser parser) -> self
+    
+    # alias | append_choice
+    alias [] option
+  end
+end

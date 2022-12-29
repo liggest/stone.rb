@@ -3,7 +3,7 @@
 module Stone
   class StoneError < RuntimeError
     def initialize: (String msg) -> void
-                  | (String msg, untyped ast) -> void
+                  | (String msg, AST::Node ast) -> void
   end
 
   class ParseError < StandardError

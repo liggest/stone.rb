@@ -1,0 +1,11 @@
+module Stone
+  class BasicParser
+
+    extend Parser::Rule
+
+    def initialize: -> void
+                   
+    def parse: (Lexer lexer) -> AST::Node
+
+  end
+end

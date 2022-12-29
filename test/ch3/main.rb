@@ -1,5 +1,5 @@
 
-require_relative "../stone.rb"
+require "stone.rb"
 
 lexer=Stone::Lexer.new ARGF
 

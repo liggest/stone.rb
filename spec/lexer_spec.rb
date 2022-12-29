@@ -37,7 +37,7 @@ RSpec.describe Stone do
         include_examples "match", "  876", [Text,TokenText,nil,TokenText,nil]
       end
       context "matches str" do
-        include_examples "match", %q("alpha\"), [Text,Text,nil,nil,Text]
+        include_examples "match", %q("alpha\\\\"), [Text,Text,nil,nil,Text]
       end
       context "matches name" do
         include_examples "match", "      >", [Text,TokenText,nil,nil,nil]
