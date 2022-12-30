@@ -4,18 +4,18 @@ module Stone
   module AST
     class Node
       include Enumerable
-
       Empty=[]
 
       def child(i) = nil
 
       def size = 0
 
-      def children = Empty.to_enum
+      def children = Empty
 
       def location = nil
 
-      alias_method :each, :children
+      def each(&block) = children.each(&block)
+      # alias_method :each, :children
 
     end
 
@@ -35,6 +35,8 @@ module Stone
 
     class List < Node
 
+      attr_reader :children
+
       def initialize(nodes)
         @children=nodes
       end
@@ -42,8 +44,6 @@ module Stone
       def child(i) = @children[i]
 
       def size = @children.size
-
-      def children = @children.each
 
       def to_s = "(#{@children.join(' ')})"
 
@@ -54,7 +54,7 @@ module Stone
 
     class NumLiteral < Leaf
       
-      def val = token.num
+      def value = token.num
     
     end
 

@@ -1,0 +1,58 @@
+
+module Stone
+  module AST
+    TRUE: 1
+    FALSE: 0
+
+    class Node
+      def eval: (_Env env) -> Object
+    end
+
+    # class Leaf < Node
+    # end
+
+    # class List < Node
+    # end
+
+    class NumLiteral < Leaf
+      def eval: (_Env env) -> Integer
+    end
+
+    class StrLiteral < Leaf
+      def eval: (_Env env) -> String
+    end
+
+    # class Name < Leaf
+    # end
+
+    class NegExpr < List
+      def eval: (_Env env) -> Integer
+    end
+
+    class BinExpr < List
+      def do_assign: (_Env env, Object rval) -> Object
+                   
+      def do_op: (Object? lval,String op, Object rval) -> Object
+               
+      def num_compute: (Integer lval,String op, Integer rval) -> Integer
+    end
+
+    # class BlockStmnt < List
+    # end
+
+    module EvalCondition
+      def turthy?: (boolish con) -> boolish
+    end
+
+    class IfStmnt < List
+      include EvalCondition
+    end
+
+    class WhileStmnt < List
+      include EvalCondition
+    end
+
+    # class NullStmnt < List
+    # end
+  end
+end

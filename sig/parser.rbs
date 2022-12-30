@@ -106,7 +106,7 @@ module Stone
 
       def next_op: (Lexer lexer) -> Precedence?
 
-      def right_expr?: (Integer prec, Precedence next_prec) -> boolish
+      def right_is_expr?: (Integer prec, Precedence next_prec) -> boolish
 
     end
 

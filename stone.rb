@@ -1,6 +1,8 @@
 require_relative "./stone/lexer"
 require_relative "./stone/token"
 require_relative "./stone/error"
+require_relative "./stone/env"
 require_relative "./stone/ast"
+require_relative "./stone/eval"
 require_relative "./stone/parser"
 require_relative "./stone/basic_parser"

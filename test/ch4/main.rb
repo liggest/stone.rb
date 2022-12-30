@@ -8,7 +8,13 @@ parser=Stone::BasicParser.new
 # p node
 # puts "=> #{ node }"
 
+#@type var file:IO?
+file=nil
 until lexer.peek(0).eql? Stone::Token::EOF
+  if !file.eql?(ARGF.file)
+    puts "File: #{ARGF.filename}"
+    file=ARGF.file
+  end
   # p token
   puts "=> #{ parser.parse lexer }"
 end

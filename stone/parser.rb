@@ -222,7 +222,7 @@ module Stone
       end
 
       def parse(lexer,res)
-        right=factor.parse lexer 
+        right=factor.parse lexer
         while prec= next_op(lexer)
           right=do_shift lexer,right,prec.value 
         end
@@ -232,7 +232,7 @@ module Stone
       def do_shift(lexer,left,prec)
         list=[left, AST::Leaf.new(lexer.read)]
         right=factor.parse lexer
-        while (_next= next_op(lexer)) && right_expr?(prec,_next)
+        while (_next= next_op(lexer)) && right_is_expr?(prec,_next)
           right=do_shift(lexer,right,_next.value)
         end
         list << right
@@ -244,7 +244,7 @@ module Stone
         ops.fetch(t.str,nil) if t.is_name?
       end
 
-      def right_expr?(prec, next_prec)
+      def right_is_expr?(prec, next_prec)
         if next_prec.left?
           prec < next_prec.value
         else

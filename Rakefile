@@ -18,3 +18,5 @@ end
 
 task :ch3, &run_main
 task :ch4, &run_main
+task :ch5 => :ch4
+task :ch6, &run_main

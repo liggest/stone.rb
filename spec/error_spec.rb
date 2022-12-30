@@ -8,14 +8,15 @@ end
 RSpec.describe Stone do
   let(:msg) { "opps" }
   describe Stone::StoneError do
-    let(:error) { Stone::StoneError.new msg}
-    it "has message" do
-      expect(error.message).to eq msg
+    context "has message" do
+      let(:error) { Stone::StoneError.new msg}
+      it { expect(error.message).to eq msg }
     end
-    let(:error) { Stone::StoneError.new msg,nil }
-    it "receives AST" do
-      skip "AST not implemented"
-      expect {error}.not_to raise_error
+    context "receives AST" do
+      let(:location) { 0 }
+      let(:error) { Stone::StoneError.new msg,Stone::AST::Leaf.new(Stone::NameToken.new(location,"x"))  }
+      # skip "AST not implemented"
+      it { expect(error.message).to eq %Q(#{msg} [Line #{location}]) }
     end
   end
 

@@ -3,7 +3,7 @@ let socket:WebSocket = undefined
 
 interface Message {
     type: "greeting" | "code",
-    text:string
+    text: string
 }
 
 function connect() {
@@ -22,7 +22,7 @@ function reconnect() {
     return connect();
 }
 
-function greetMsg(text) {
+function greetMsg(text: string) {
     socket.send(JSON.stringify({ type:"greeting", text:text } as Message))
 }
 
@@ -64,12 +64,19 @@ addEventListener("load",(event) => {
 
     code.textContent+=initCode
 
+    let timeout=undefined
+
     code.addEventListener("input",(event:InputEvent) => {
         // console.log(event)
         // console.log(event.data)
         // console.log(code.selectionStart)
         // console.log(code.selectionEnd)
-        codeMsg()
+        if(timeout!==undefined)
+        {
+            clearTimeout(timeout)
+            timeout=undefined
+        }
+        timeout=setTimeout(codeMsg, 300)
     })
 
     code.addEventListener("paste", (event) => {

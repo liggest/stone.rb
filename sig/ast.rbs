@@ -11,7 +11,7 @@ module Stone
       def initialize: (untyped) -> void
       def child: (Integer i) -> Node?
       def size: -> Integer
-      def children: -> Enumerator[Node,Array[Node]]
+      def children: -> Array[Node]
       def location: -> String?
       # def each: -> _Each[Node]
       # def each: -> Enumerator[Node,Array[Node]]
@@ -27,14 +27,15 @@ module Stone
     end
 
     class List < Node
-      @children: Array[Node]
+      attr_reader children: Array[Node]
+      # @children: Array[Node]
 
       def initialize: (Array[Node] nodes) -> void
       def to_s: -> String
     end
 
     class NumLiteral < Leaf
-      def val: -> Integer
+      def value: -> Integer
     end
 
     class Name < Leaf
