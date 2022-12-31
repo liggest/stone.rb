@@ -36,10 +36,10 @@ File: ./test/ch6/sum.stone
 => 0
 => (i = 1)
 => 1
-=> (while (i < 10) ((sum = (sum + 1)) (i = (i + 1))))
+=> (while (i < 10) ((sum = (sum + i)) (i = (i + 1))))
 => 10
 => sum
-=> 9
+=> 45
 File: ./test/ch6/test.stone
 => (x = (3 + ((5 * 2) * (even + odd))))
 => 453
