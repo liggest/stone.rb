@@ -4,10 +4,11 @@ target :stone do
   signature "sig"
 
   check "stone.rb"
-  check "stone/*.rb"                       # Directory name
-  check "test/**/*.rb"
-  # check "spec/*.rb"
-  check "backend/*.rb"
+  # check "stone/*.rb"                       # Directory name
+  check "stone"
+  check "test"
+  # check "spec"
+  check "backend"
   # check "Gemfile"                   # File name
   # check "app/models/**/*.rb"        # Glob
   # ignore "lib/templates/*.rb"

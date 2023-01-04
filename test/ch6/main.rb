@@ -3,7 +3,7 @@ require "stone.rb"
 
 lexer=Stone::Lexer.new ARGF
 parser=Stone::BasicParser.new
-env=Stone::BaseEnv.new
+env=Stone::BasicEnv.new
 
 #@type var file:IO?
 file=nil

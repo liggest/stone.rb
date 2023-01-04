@@ -161,5 +161,9 @@ module Stone
     
     # alias | append_choice
     alias [] option
+
+    attr_accessor syntax_cls: singleton(BasicParser)
+
+    def method_missing: (Symbol name) -> untyped
   end
 end

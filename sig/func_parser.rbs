@@ -1,0 +1,14 @@
+
+module Stone
+  class FuncParser < BasicParser
+    
+    attr_reader self.param: Parser
+    attr_reader self.params: Parser
+    attr_reader self.param_list: Parser
+    attr_reader self.def: Parser
+    attr_reader self.args: Parser
+    attr_reader self.suffix: Parser
+
+    def initialize: -> void
+  end
+end

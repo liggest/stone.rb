@@ -3,10 +3,30 @@ require "set"
 module Stone
   class BasicParser
 
-    extend Parser::Rule
+    # extend Parser::Rule
 
-    reserved=Set.new
-    operators=Parser::Operators.new
+    class << self
+      attr_reader :reserved, :operators
+
+      include Parser::Rule
+
+      attr_reader :_if_statement, :_while_statement
+      attr_reader :primary, :factor, :expr, :block, :simple, :statement, :program
+
+      def inherited sub
+        # copy self's instance var into sub
+        # make subclass behave like current class
+        # without this, self @value != super @value
+        self.instance_variables.each do |name|
+          iv=self.instance_variable_get name
+          sub.instance_variable_set(name,iv) if !sub.instance_variable_defined? name
+        end
+      end
+
+    end
+
+    @reserved=Set.new
+    @operators=Parser::Operators.new
 
     _expr=rule
 
@@ -17,7 +37,7 @@ module Stone
     #   rule.STR(AST::StrLiteral)
     # end
 
-    primary=rule(AST::PrimaryExpr).or(
+    @primary=rule(AST::PrimaryExpr).or(
       rule.sep("(").ast(_expr).sep(")"),
       rule.NUM(AST::NumLiteral),
       rule.NAME(reserved,AST::Name),
@@ -25,33 +45,34 @@ module Stone
     )
 
     # factor=rule(AST::NegExpr).sep("-").ast(primary) | primary
-    factor=rule.or(
+    @factor=rule.or(
       rule(AST::NegExpr).sep("-").ast(primary),
       primary
     )
 
-    expr=_expr.expression(factor, operators, AST::BinExpr)
+    @expr=_expr.expression(factor, operators, AST::BinExpr)
 
     _statement=rule
-    block=rule AST::BlockStmnt do 
+    @block=rule AST::BlockStmnt do 
       sep("{") [ _statement ].repeat {
         rule.sep(";",Token::EOL) [ _statement ]
       }.sep("}")
     end
+    # _block=@block
     # _block=rule AST::BlockStmnt
 
-    simple=rule(AST::PrimaryExpr).ast(expr)
+    @simple=rule(AST::PrimaryExpr).ast(expr)
 
-    _if_statement=rule AST::IfStmnt do
+    @_if_statement=rule AST::IfStmnt do
       sep("if").ast(expr).ast(block) [  
         rule.sep("else").ast(block)
       ]
     end
-    _while_statement=rule AST::WhileStmnt do
+    @_while_statement=rule AST::WhileStmnt do
       sep("while").ast(expr).ast(block)
     end
 
-    statement=_statement.or(
+    @statement=_statement.or(
       _if_statement,
       _while_statement,
       simple
@@ -64,10 +85,16 @@ module Stone
     # }.sep("}")
 
     # program=statement | rule(AST::NullStmnt).sep(";",Token::EOL)
-    program=rule.or(statement,rule(AST::NullStmnt)).sep(";",Token::EOL)
+    @program=rule.or(statement,rule(AST::NullStmnt)).sep(";",Token::EOL)
     # pp program.elements
-    #@dynamic initialize
-    define_method :initialize do
+    # # define_method :initialize do
+    # # define_method :parse do |lexer|
+
+    def reserved = self.class.reserved
+
+    def operators = self.class.operators
+    
+    def initialize
       reserved.add ";"
       reserved.add "}"
       reserved.add Token::EOL
@@ -83,10 +110,7 @@ module Stone
       operators.add "%" ,4,Parser::Operators::LEFT
     end
 
-    #@dynamic parse
-    define_method :parse do |lexer|
-      program.parse(lexer= _ = lexer) # make steep happy
-    end
+    def parse(lexer) = self.class.program.parse lexer
 
   end
 end

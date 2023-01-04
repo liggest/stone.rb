@@ -1,0 +1,23 @@
+module Stone
+  module AST
+    class Params < List
+      def name: (Integer i) -> String
+    end
+
+    class DefStmnt < List
+      def name: () -> String
+
+      def params: () -> Params
+
+      def body: () -> BlockStmnt
+
+      def to_s: () -> String
+    end
+
+    class Suffix < List
+    end
+
+    class Args < Suffix
+    end
+  end
+end

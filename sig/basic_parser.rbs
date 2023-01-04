@@ -1,7 +1,24 @@
 module Stone
   class BasicParser
+    
+    attr_reader self.reserved: Set[String]
+    attr_reader self.operators: Parser::Operators
 
     extend Parser::Rule
+
+    attr_reader self._if_statement: Parser
+    attr_reader self._while_statement: Parser
+    attr_reader self.primary: Parser
+    attr_reader self.factor: Parser
+    attr_reader self.expr: Parser
+    attr_reader self.block: Parser
+    attr_reader self.simple: Parser
+    attr_reader self.statement: Parser
+    attr_reader self.program: Parser
+
+    def reserved: -> Set[String]
+
+    def operators: -> Parser::Operators
 
     def initialize: -> void
                    

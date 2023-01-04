@@ -122,8 +122,6 @@ module Stone
 
     end
 
-    
-
     class IfStmnt < List
 
       include EvalCondition
@@ -159,5 +157,70 @@ module Stone
     # class NullStmnt < List
 
     # end
+
+    class DefStmnt < List
+
+      def eval(env)
+        env.set! name, Function.new(params,body,env)
+        name
+      end
+
+    end
+
+    class PrimaryExpr < List
+
+      def operand = _=child(0) # make steep happy
+
+      def suffix(nest) = _=child(size-nest-1) # make steep happy
+
+      def suffix?(nest) = size-nest>1
+
+      def eval(env) = eval_sub_expr env,0
+
+      # def eval(env)
+      #   res=operand.eval env
+      #   res=self.drop(1).reverse.reduce{ |res,suffix| suffix.eval(env)} if size>1
+      # end
+
+      def eval_sub_expr(env,nest)
+        if suffix? nest
+          target=eval_sub_expr env,nest+1 # get function obj
+          suffix(nest).eval env,target # args.eval env,func
+        else
+          operand.eval env
+        end
+      end
+
+    end
+
+    class Suffix < List
+
+      def eval(env,val)
+        raise StoneError.new("cannot eval #{self},#{target}",self)
+      end
+
+    end
+
+    class Args < Suffix
+
+      def eval env,val
+        raise StoneError.new("bad function",self) unless val.is_a? Function # val should be function
+        params=val.params
+        raise StoneError.new("bad number of arguments",self) unless size.eql? params.size 
+        new_env=val.new_env
+        self.each_with_index do |arg,idx|
+          params.eval(new_env,idx,arg.eval(env)) # eval args, set to new env as name in params
+        end
+        val.body.eval(new_env)
+      end
+
+    end
+
+    class Params < List
+      
+      def eval(env,idx,val) = env.set!(name(idx),val)
+
+    end
+
   end
 end

@@ -54,5 +54,31 @@ module Stone
 
     # class NullStmnt < List
     # end
+
+
+    # class DefStmnt < List
+    # end
+
+    class PrimaryExpr < List
+      def operand: () -> Node
+
+      def suffix: (Integer nest) -> Suffix
+
+      def suffix?: (Integer nest) -> boolish
+
+      def eval_sub_expr: (_Env env, Integer nest) -> Object
+    end
+
+    class Suffix < List
+      def eval: (_Env env, Object val) -> Object
+    end
+
+    # class Args < Suffix
+    # end
+
+    class Params < List
+      def eval: (_Env env, Integer idx, Object val) -> void
+    end
+
   end
 end

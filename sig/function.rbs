@@ -1,0 +1,15 @@
+module Stone
+  class Function
+    attr_reader params: AST::Params
+
+    attr_reader body: AST::BlockStmnt
+
+    attr_reader env: _Env
+
+    def initialize: (AST::Params _params, AST::BlockStmnt _body, _Env _env) -> void
+
+    def new_env: () -> _Env
+
+    def to_s: () -> String
+  end
+end
