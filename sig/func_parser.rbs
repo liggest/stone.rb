@@ -11,4 +11,10 @@ module Stone
 
     def initialize: -> void
   end
+
+  class ClosureParser < FuncParser
+
+    attr_reader self.fun: Parser
+  
+  end
 end

@@ -27,6 +27,16 @@ module Stone
       
     end
 
+    class Fun < List
+      
+      def params = _=child(0) # make steep happy
+
+      def body = _=child(1)
+      
+      def to_s = "(fun #{params} #{body} )"
+
+    end
+
   end
   
 end

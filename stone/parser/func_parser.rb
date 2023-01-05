@@ -50,4 +50,16 @@ module Stone
     end
 
   end
+
+  class ClosureParser < FuncParser
+    
+    class << self
+      attr_reader :fun
+    end
+
+    @fun=rule(AST::Fun).sep("fun").ast(param_list).ast(block)
+    primary.insert_choice self.fun
+
+  end
+
 end

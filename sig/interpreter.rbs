@@ -2,8 +2,9 @@ module Stone
   class BasicInterpreter
     attr_reader parser: BasicParser 
     attr_reader env: _Env
+    attr_reader file: _Reader
 
-    def initialize: (?BasicParser? parser, ?_Env? env) -> void
+    def initialize: (?BasicParser? parser, ?_Env? env, ?io: _Reader) -> void
 
     def run: (BasicParser parser, _Env env) -> void
     def call: () -> void
@@ -11,4 +12,8 @@ module Stone
 
   class FuncInterpreter < BasicInterpreter
   end
+
+  class ClosureInterpreter < FuncInterpreter
+  end
+
 end

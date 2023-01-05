@@ -1,0 +1,6 @@
+inc = fun (x) { x + 1 }
+inc(3)
+
+y = 5
+inc = fun () { y + 1 }
+inc()

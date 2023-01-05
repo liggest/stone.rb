@@ -19,5 +19,13 @@ module Stone
 
     class Args < Suffix
     end
+
+    class Fun < List
+      def params: () -> Params
+
+      def body: () -> BlockStmnt
+
+      def to_s: () -> String
+    end
   end
 end

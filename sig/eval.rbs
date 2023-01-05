@@ -80,5 +80,8 @@ module Stone
       def eval: (_Env env, Integer idx, Object val) -> void
     end
 
+    # class Fun < List
+    # end
+
   end
 end

@@ -222,5 +222,11 @@ module Stone
 
     end
 
+    class Fun < List
+
+      def eval(env) = Function.new(params,body,env)
+      
+    end
+
   end
 end
